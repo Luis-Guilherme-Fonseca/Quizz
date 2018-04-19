@@ -7,7 +7,7 @@ const ListTitle = Styled.Text`
 	marginTop: 30;
 `;
 
-const Subtitle = Styled.Text`
+export const Subtitle = Styled.Text`
 	fontSize: 22;
 	color: gray;
 	marginBottom: 50;
@@ -26,18 +26,18 @@ export default class Decks extends Component{
 			<View>
 				<FlatList 
 					data={[
-						{key: 'oi'},
-						{key: 'minha'},
-						{key: 'Ariane'},
-						{key: 'Filipe'},
-						{key: 'Galeno'},
-						{key: 'Biten'},
-						{key: 'Foda'},
-						{key: 'vida'}
+						{key: 'oi', cards: 1},
+						{key: 'minha', cards: 2},
+						{key: 'Ariane', cards: 0},
+						{key: 'Filipe', cards: 1},
+						{key: 'Galeno', cards: 3},
+						{key: 'Biten', cards: 5},
+						{key: 'Foda', cards: 4},
+						{key: 'vida', cards: 3}
 					]}
 					renderItem={({item}) => <ListView>
 							<ListTitle>{item.key}</ListTitle>
-							<Subtitle>{item.key}</Subtitle>
+							<Subtitle>{item.cards}</Subtitle>
 						</ListView>}/>
 				<TouchableOpacity><Text>Vida vida doce Vida</Text></TouchableOpacity>
 			</View>
