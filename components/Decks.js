@@ -26,13 +26,13 @@ export default class Decks extends Component{
 			<View>
 				<FlatList 
 					data={[
-						{key: 'oi', cards: 1},
-						{key: 'minha', cards: 2},
+						{key: 'Clara', cards: 1},
+						{key: 'Raphael', cards: 2},
 						{key: 'Ariane', cards: 0},
 						{key: 'Filipe', cards: 1},
 						{key: 'Galeno', cards: 3},
 						{key: 'Biten', cards: 5},
-						{key: 'Foda', cards: 4},
+						{key: 'Jose', cards: 4},
 						{key: 'vida', cards: 3}
 					]}
 					renderItem={({item}) => <ListView>
