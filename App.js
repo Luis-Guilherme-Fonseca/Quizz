@@ -1,7 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import Decks from './components/Decks';
 import CreateDeck from './components/CreateDeck';
+import reducer from './reducers';
 import { TabNavigator } from 'react-navigation';
 import { FontAwesome, Entypo } from '@expo/vector-icons';
 import { Constants } from 'expo';
@@ -45,10 +49,12 @@ const Tabs = TabNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{flex: 1}} >
-        <MyStatusBar />
-        <Tabs />
-      </View>
+      <Provider store={createStore(reducer, applyMiddleware(thunk))} >
+        <View style={{flex: 1}} >
+          <MyStatusBar />
+          <Tabs />
+        </View>
+      </Provider>
     );
   }
 }

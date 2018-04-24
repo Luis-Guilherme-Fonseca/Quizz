@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-function createDeck(title){
+export function createDeck(title){
 	let deck = {};
 	deck.title = title;
 	deck.questions = [];
@@ -8,8 +8,8 @@ function createDeck(title){
 	return deck
 }
 
-export function saveDeck(title){
-	AsyncStorage.setItem(title, JSON.stringify(createDeck(title)));
+export function saveDeck(deck){
+	AsyncStorage.setItem(deck.title, JSON.stringify(deck));
 }
 
 export async function getDecks(){

@@ -2,17 +2,23 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
 import { Subtitle } from './Decks';
 import Styled from 'styled-components';
-import { saveDeck } from '../utils/StorageAPI';
+import { connect } from 'react-redux';
+import { addDeck } from '../actions';
+import { createDeck, saveDeck } from '../utils/Storage';
 
-export default class CreateDeck extends Component{
+class CreateDeck extends Component{
 	state = {
 		title: ''
 	}
 
-	createDeck = () => {
+	addNewDeck = () => {
 		const { title } = this.state;
+		const { decks } = this.props.decks;
+
 		if(title !== ''){
-			saveDeck(title)
+			const deck = createDeck(title)
+			saveDeck(deck)
+			this.props.dispatch(addDeck(deck, decks))
 		}
 	}
 
@@ -25,7 +31,7 @@ export default class CreateDeck extends Component{
 					<TextInput placeholder="Deck Title" onChangeText={(text) => this.setState({title: text})} style={styles.input} />
 					<TouchableOpacity 
 						style={[styles.submitBtn, {alignSelf: 'center', justifyContent: 'center'}]} 
-						onPress={() => this.createDeck()} >
+						onPress={() => this.addNewDeck()} >
 							<Text style={{color: 'white', alignSelf: 'center', fontSize: 15}} >Submit</Text>
 					</TouchableOpacity>
 				</View>
@@ -50,4 +56,12 @@ const styles = StyleSheet.create({
    	  height: 45,
    	  backgroundColor: 'black'
    }
-}) 
+})
+
+function mapStateToProps(decks) {
+	return {
+		decks
+	}
+}
+
+export default connect(mapStateToProps)(CreateDeck)
