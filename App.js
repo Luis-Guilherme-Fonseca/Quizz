@@ -5,8 +5,9 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import Decks from './components/Decks';
 import CreateDeck from './components/CreateDeck';
+import Deck from './components/Deck';
 import reducer from './reducers';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 import { FontAwesome, Entypo } from '@expo/vector-icons';
 import { Constants } from 'expo';
 
@@ -46,13 +47,29 @@ const Tabs = TabNavigator({
   }
 })
 
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: Tabs
+  },
+  Deck: {
+    screen: Deck,
+    navigationOptions: {
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'black',
+        height: 56
+      }
+    }
+  }
+})
+
 export default class App extends React.Component {
   render() {
     return (
       <Provider store={createStore(reducer, applyMiddleware(thunk))} >
         <View style={{flex: 1}} >
           <MyStatusBar />
-          <Tabs />
+          <MainNavigator />
         </View>
       </Provider>
     );

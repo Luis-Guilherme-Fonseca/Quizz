@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
-import { Subtitle } from './Decks';
+import { Title } from './Styled';
 import Styled from 'styled-components';
 import { connect } from 'react-redux';
 import { addDeck } from '../actions';
@@ -27,7 +27,7 @@ class CreateDeck extends Component{
 		return(
 			<View style={{justifyContent: 'center', height: height, width: width}}>
 				<View>
-					<Subtitle style={{ color: "black", marginBottom: 20}} >Choose a Title for your new deck</Subtitle>
+					<Title style={{ color: "black", marginBottom: 20}} >Choose a Title for your new deck</Title>
 					<TextInput placeholder="Deck Title" onChangeText={(text) => this.setState({title: text})} style={styles.input} />
 					<TouchableOpacity 
 						style={[styles.submitBtn, {alignSelf: 'center', justifyContent: 'center'}]} 
