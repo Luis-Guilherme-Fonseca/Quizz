@@ -20,12 +20,12 @@ export default class Deck extends Component{
 			<View style={{height: (height - tabHeight), justifyContent: 'center', alignItems: 'center'}} >
 				<Title style={{marginTop: 0}} >{item.title}</Title>
 				<Subtitle style={{marginBottom: 26}} >{item.questions.length} Cards</Subtitle>
-				<FormButton>
+				<FormButton onPress={() => this.props.navigation.navigate('AddCard', {item})}>
 					<Text>
 						Add Card
 					</Text>
 				</FormButton>
-				<FormButton style={{backgroundColor: 'black', marginTop: 15}} >
+				<FormButton style={{backgroundColor: 'black', marginTop: 15}} onPress={() => this.props.navigation.navigate('Quizz', {item})} >
 					<Text style={{color: 'white'}} >
 						Play Quizz
 					</Text>

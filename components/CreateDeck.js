@@ -29,8 +29,8 @@ class CreateDeck extends Component{
 				<View>
 					<Title style={{ color: "black", marginBottom: 20}} >Choose a Title for your new deck</Title>
 					<TextInput placeholder="Deck Title" onChangeText={(text) => this.setState({title: text})} style={styles.input} />
-					<TouchableOpacity 
-						style={[styles.submitBtn, {alignSelf: 'center', justifyContent: 'center'}]} 
+					<TouchableOpacity
+						style={[styles.submitBtn, {alignSelf: 'center', justifyContent: 'center'}]}
 						onPress={() => this.addNewDeck()} >
 							<Text style={{color: 'white', alignSelf: 'center', fontSize: 15}} >Submit</Text>
 					</TouchableOpacity>
