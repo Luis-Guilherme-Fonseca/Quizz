@@ -19,3 +19,13 @@ export async function getDecks(){
 		return res.map((R) => {return JSON.parse(R[1])})	
 	});
 }
+
+export function addCard(title, card){
+	AsyncStorage.getItem(title)
+		.then((deck) => {
+			return JSON.parse(deck)
+		}).then((item) => {
+			item.questions.push(card)
+			AsyncStorage.setItem(title, JSON.stringify(item))
+		})
+}

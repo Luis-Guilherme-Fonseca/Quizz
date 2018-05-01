@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import Decks from './components/Decks';
 import CreateDeck from './components/CreateDeck';
 import Deck from './components/Deck';
-import Quizz from './components/Card';
+import Quizz from './components/Quizz';
 import AddCard from './components/CreateCard';
 import reducer from './reducers';
 import { TabNavigator, StackNavigator } from 'react-navigation';

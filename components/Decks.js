@@ -25,11 +25,11 @@ class Decks extends Component{
 			<View>
 				<FlatList 
 					data={decks.decks}
-					renderItem={({item}) => 
+					renderItem={({item, index}) => 
 						<ListView >
 							<TouchableOpacity 
 								style={{flex: 1, width: Dimensions.get('window').width}}
-								onPress={() => this.props.navigation.navigate('Deck', {item})} >
+								onPress={() => this.props.navigation.navigate('Deck', {item, index})} >
 								<Title>{item.title}</Title>
 								<Subtitle>{item.questions.length} Cards</Subtitle>
 							</TouchableOpacity>

@@ -4,33 +4,29 @@ import Styled from 'styled-components';
 import { Title, FormButton } from './Styled';
 
 class Card extends Component{
-	state = {
-		correctAnswers: 0,
-	}
-
 
 	render(){
-		const { height } = Dimensions.get('window');
+		const { side, changeSide } = this.props
 		return(
-			<View style={{height: (height - 130), justifyContent: 'space-between'}} >
-				<View>
-					{/*frente*/}
-					<Title>Question</Title>
-					<Text>View Answer</Text>
-				</View>
-				<View>
-					{/*verso*/}
-					<Title>Answer</Title>
-					<Text>View Question</Text>
-				</View>
-				<View>
-					<FormButton style={{backgroundColor: 'green', marginTop: 12}} >
-						<Text>Correct</Text>
-					</FormButton>
-					<FormButton style={{backgroundColor: 'green', marginTop: 12}} >
-						<Text>Incorrect</Text>
-					</FormButton>
-				</View>
+			<View>
+				{ side === 0 &&
+					<View>
+						{/*frente*/}
+						<Title>{this.props.question.question}</Title>
+						<TouchableOpacity onPress={() => changeSide(1)} style={{alignSelf: 'center'}} >
+							<Text style={{color: 'red'}}>View Answer</Text>
+						</TouchableOpacity>
+					</View>
+				}
+				{ side === 1 &&
+					<View>
+						{/*verso*/}
+						<Title>{this.props.question.answer}</Title>
+						<TouchableOpacity onPress={() => changeSide(0)} style={{alignSelf: 'center'}} >	
+							<Text style={{color: 'red'}}>View Question</Text>
+						</TouchableOpacity>
+					</View>
+				}
 			</View>
 		)
 	}
