@@ -64,14 +64,14 @@ class Card extends Component{
 		return(
 			<View style={{alignItems: 'center'}} >
 				{/*frente*/}
-				<Animated.View style={[styles.card, frontStyle, {borderColor: "black", borderWidth: 0.8}]}>
+				<Animated.View style={[styles.card, frontStyle]}>
 					<Title>{this.props.question.question}</Title>
 					<TouchableOpacity onPress={() => this.flipCard()} style={{alignSelf: 'center'}} >
 						<Text style={{color: 'red'}}>View Answer</Text>
 					</TouchableOpacity>
 				</Animated.View>
 				{/*verso*/}
-				<Animated.View style={[styles.card, styles.cardBack, backStyle, {borderColor: "black", borderWidth: 0.8}]}>
+				<Animated.View style={[styles.card, styles.cardBack, backStyle]}>
 					<Title>{this.props.question.answer}</Title>
 					<TouchableOpacity onPress={() => this.flipCard()} style={{alignSelf: 'center'}} >	
 						<Text style={{color: 'red'}}>View Question</Text>
@@ -89,6 +89,8 @@ const styles = StyleSheet.create({
 	alignItems: 'center',
 	justifyContent: 'center',
 	backfaceVisibility: 'hidden',
+	borderColor: "black",
+	borderWidth: 0.8,
   },
   cardBack: {
 	position: "absolute",
