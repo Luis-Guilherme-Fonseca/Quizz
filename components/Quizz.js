@@ -7,7 +7,6 @@ class Quizz extends Component{
 	state = {
 		answers: 0,
 		score: 0,
-		side: 0
 	}
 
 	answer(resultado){
@@ -17,8 +16,7 @@ class Quizz extends Component{
 		answers++;
 		
 		this.setState({answers});
-		this.setState({side: 0})
-
+	
 		if(resultado){
 			score++;
 			this.setState({score})
@@ -27,7 +25,7 @@ class Quizz extends Component{
 
 	render(){
 		const { item } = this.props.navigation.state.params
-		const {answers, score, side} = this.state
+		const {answers, score} = this.state
 		const { height } = Dimensions.get('window');
 		
 		return(
@@ -35,7 +33,7 @@ class Quizz extends Component{
 				{item.questions.length > answers &&
 					<View  style={{height: (height - 150), justifyContent: 'space-around'}} >
 						<Text style={{fontSize: 22, marginTop: 4, marginLeft: 5}} >{`${answers + 1} / ${item.questions.length}`}</Text>
-						<Card question={item.questions[answers]} side={side} changeSide={(value) => this.setState({side: value})} />
+						<Card question={item.questions[answers]} />
 						<View>
 							<FormButton style={{backgroundColor: 'green', marginTop: 12}} onPress={() => this.answer(true)} >
 								<Text style={{color: 'white'}} >Correct</Text>
