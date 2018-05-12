@@ -34,13 +34,13 @@ class Card extends Component{
 		if (this.value >= 90) {
 			Animated.spring(this.animatedValue,{
 				toValue: 0,
-				friction: 8,
+				friction: 12,
 				tension: 10
 				}).start();
 		} else {
 			Animated.spring(this.animatedValue,{
 				toValue: 180,
-				friction: 8,
+				friction: 12,
 				tension: 10
 				}).start();
 		}

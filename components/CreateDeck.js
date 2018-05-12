@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
-import { Title } from './Styled';
+import { View, Text, TextInput, TouchableOpacity, Dimensions, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { Title, InputField } from './Styled';
 import Styled from 'styled-components';
 import { connect } from 'react-redux';
 import { addDeck } from '../actions';
@@ -25,30 +25,20 @@ class CreateDeck extends Component{
 	render(){
 		const { height, width } = Dimensions.get('window')
 		return(
-			<View style={{justifyContent: 'center', height: height, width: width}}>
-				<View>
-					<Title style={{ color: "black", marginBottom: 20}} >Choose a Title for your new deck</Title>
-					<TextInput placeholder="Deck Title" onChangeText={(text) => this.setState({title: text})} style={styles.input} />
-					<TouchableOpacity
-						style={[styles.submitBtn, {alignSelf: 'center', justifyContent: 'center'}]}
-						onPress={() => this.addNewDeck()} >
-							<Text style={{color: 'white', alignSelf: 'center', fontSize: 15}} >Submit</Text>
-					</TouchableOpacity>
-				</View>
-			</View>
+			<KeyboardAvoidingView style={{justifyContent: 'center', height: (height - 100), width: width}} behavior="padding" enabled >
+				<Title style={{ color: "black", marginBottom: 20, marginTop: 0}} >Choose a Title for your new deck</Title>
+				<InputField placeholder="Deck Title" onChangeText={(text) => this.setState({title: text})} />
+				<TouchableOpacity
+					style={[styles.submitBtn, {alignSelf: 'center', justifyContent: 'center', marginBottom: 25}]}
+					onPress={() => this.addNewDeck()} >
+						<Text style={{color: 'white', alignSelf: 'center', fontSize: 15}} >Submit</Text>
+				</TouchableOpacity>
+			</KeyboardAvoidingView>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
-	input: {
-      margin: 40,
-      fontSize: 16,
-      height: 40,
-      borderColor: 'black',
-      borderRadius: 8,
-      borderWidth: 2
-   },
    submitBtn: {
    	  borderWidth: 1,
    	  borderRadius: 10,
