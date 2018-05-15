@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Alert, TimePickerAndroid} from 'react-native';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -12,6 +12,7 @@ import reducer from './reducers';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { FontAwesome, Entypo } from '@expo/vector-icons';
 import { Constants } from 'expo';
+import { addNotification, getNotification } from './utils/Storage';
 
 function MyStatusBar({...props}){
 	return (
@@ -88,6 +89,31 @@ const MainNavigator = StackNavigator({
 })
 
 export default class App extends React.Component {
+	componentDidMount(){
+		getNotification()
+			.then(data => {
+				if(!data){
+					Alert.alert(
+						'Add a study remainder.',
+						'Do you want to set a remainder to remember youto study daily?',
+						[
+							{text: 'Yes', onPress: () => this.setNotificationTime()},
+							{text: 'No', style: 'cancel'},
+						]
+					)
+				}
+			})
+	}
+
+	async setNotificationTime(){
+		const {action, hour, minute} = await TimePickerAndroid.open({
+			mode: 'default'
+		})
+		if(action !== TimePickerAndroid.dismissedAction){
+			addNotification(hour, minute)
+		}
+	}
+
 	render() {
 		return (
 			<Provider store={createStore(reducer, applyMiddleware(thunk))} >

@@ -31,7 +31,9 @@ class Decks extends Component{
 								style={{flex: 1, width: Dimensions.get('window').width}}
 								onPress={() => this.props.navigation.navigate('Deck', {item, index})} >
 								<Title>{item.title}</Title>
-								<Subtitle>{item.questions.length} Cards</Subtitle>
+								{item.questions !== undefined &&
+									<Subtitle>{item.questions.length} Cards</Subtitle>
+								}
 							</TouchableOpacity>
 						</ListView>
 					}/>

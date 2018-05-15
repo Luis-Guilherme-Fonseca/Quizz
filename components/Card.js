@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Dimensions, Animated, StyleSheet } from 'react-native';
 import Styled from 'styled-components';
-import { Title, FormButton } from './Styled';
+import { Title, FormButton} from './Styled';
 
 class Card extends Component{
 

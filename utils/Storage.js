@@ -1,4 +1,7 @@
 import { AsyncStorage } from 'react-native';
+import { Notifications, Permissions } from 'expo';
+
+const QUIZZ_KEY = 'Quizz:DailyReminder';
 
 export function createDeck(title){
 	let deck = {};
@@ -27,5 +30,47 @@ export function addCard(title, card){
 		}).then((item) => {
 			item.questions.push(card)
 			AsyncStorage.setItem(title, JSON.stringify(item))
+		})
+}
+
+export function getNotification(){
+	return AsyncStorage.getItem(QUIZZ_KEY).then(JSON.parse);
+}
+
+export function addNotification(hour, minute){
+	Permissions.askAsync(Permissions.NOTIFICATIONS)
+		.then((data) => {
+			if(data.status === 'granted'){
+				Notifications.cancelAllScheduledNotificationsAsync();
+				let tomorrow = new Date();
+				if(hour && minute){
+					if(tomorrow.getHours() >=  hour){
+						tomorrow.setDate(tomorrow.getDate() + 1)
+					}
+					tomorrow.setHours(hour);
+					tomorrow.setMinutes(minute);
+				}
+				console.warn(tomorrow)
+				Notifications.scheduleLocalNotificationAsync(
+					{
+						// First Parameter
+						title: 'Study Some Quizzes',
+						body: 'Don`t forget your daily studies',
+						ios: {
+							sound: true
+						},
+							android: {
+							priority: 'low',
+							vibrate: true
+						}
+					},
+					{
+						// Second Parameter
+						time: tomorrow,
+						repeat: 'day'
+					}
+				);						
+				AsyncStorage.setItem(QUIZZ_KEY, JSON.stringify(true));
+			}
 		})
 }
