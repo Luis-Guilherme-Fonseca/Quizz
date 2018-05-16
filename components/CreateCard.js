@@ -20,7 +20,7 @@ class CreateCard extends Component{
 		if(question !== "" && answer !== ""){
 			decks[index].questions.push({question: question, answer: answer});
 			addCard(item.title, {question: question, answer: answer});
-			receiveDecks(decks)
+			this.props.getDecks(decks)
 		}
 	}
 
@@ -39,10 +39,16 @@ class CreateCard extends Component{
 	}
 }
 
+function mapDispatchToProps(dispatch){
+	return{
+		getDecks: (decks) => dispatch(receiveDecks(decks)),
+	}
+}
+
 function mapStateToProps(decks){
 	return {
 		decks
 	}
 }
 
-export default connect(mapStateToProps)(CreateCard);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateCard);

@@ -3,8 +3,8 @@ import { View, Text, TouchableOpacity, FlatList, Dimensions } from 'react-native
 import { Title, Subtitle } from './Styled'
 import Styled from 'styled-components';
 import { connect } from 'react-redux';
-import { fetchDecks } from '../actions';
-
+import { receiveDecks } from '../actions';
+import { getDecks } from '../utils/Storage';
 
 const ListView = Styled.View`
 	justifyContent: center;
@@ -16,7 +16,11 @@ const ListView = Styled.View`
 class Decks extends Component{
 	
 	componentDidMount(){
-		this.props.receiveDecks();
+		getDecks().then((decks) => {
+			console.warn(decks)
+			this.props.returnDecks(decks)
+		})
+		
 	}
 
 	render(){
@@ -25,6 +29,7 @@ class Decks extends Component{
 			<View>
 				<FlatList 
 					data={decks.decks}
+					extraData={this.props}
 					renderItem={({item, index}) => 
 						<ListView >
 							<TouchableOpacity 
@@ -50,7 +55,7 @@ function mapStateToProps(decks){
 
 function mapDispatchToProps(dispatch){
 	return{
-		receiveDecks: () => dispatch(fetchDecks()),
+		returnDecks: (decks) => dispatch(receiveDecks(decks)),
 	}
 }
 

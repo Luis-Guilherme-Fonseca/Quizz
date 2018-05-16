@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Title, Subtitle,FormButton } from './Styled';
 import { Constants } from 'expo';
 
-export default class Deck extends Component{
+class Deck extends Component{
 	static navigationOptions = ({navigation}) => {
 		const {item} = navigation.state.params
 		return {
@@ -14,12 +14,13 @@ export default class Deck extends Component{
 
 	render(){
 		const { item, index } = this.props.navigation.state.params;
+		const { decks } = this.props.decks
 		const { height, width } = Dimensions.get('window')
 		const tabHeight = 56 + Constants.statusBarHeight
 		return(
 			<View style={{height: (height - tabHeight), justifyContent: 'center', alignItems: 'center'}} >
 				<Title style={{marginTop: 0}} >{item.title}</Title>
-				<Subtitle style={{marginBottom: 26}} >{item.questions.length} Cards</Subtitle>
+				<Subtitle style={{marginBottom: 26}} >{decks[index].questions.length} Cards</Subtitle>
 				<FormButton onPress={() => this.props.navigation.navigate('AddCard', {item, index})}>
 					<Text>
 						Add Card
@@ -34,3 +35,11 @@ export default class Deck extends Component{
 		)
 	}
 }
+
+function mapStateToProps(decks){
+	return{
+		decks
+	}
+}
+
+export default connect(mapStateToProps)(Deck)
