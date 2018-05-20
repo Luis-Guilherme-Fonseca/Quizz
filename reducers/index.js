@@ -2,7 +2,6 @@ import { RECEIVE_DECKS, ADD_DECK } from '../actions';
 
 function decks(state = {}, action){
 	const {decks, deck} = action
-	console.log(decks)
 	switch(action.type){
 		case RECEIVE_DECKS:
 			return{

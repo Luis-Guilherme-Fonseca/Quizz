@@ -30,6 +30,18 @@ class Card extends Component{
 		})
 	}
 
+	shouldComponentUpdate(nextProps){
+		if(this.value >= 90){
+			Animated.spring(this.animatedValue,{
+				toValue: 0,
+				friction: 12,
+				tension: 10
+				}).start();
+		}
+
+		return true
+	}
+
 	flipCard = () => {
 		if (this.value >= 90) {
 			Animated.spring(this.animatedValue,{

@@ -37,6 +37,35 @@ export function getNotification(){
 	return AsyncStorage.getItem(QUIZZ_KEY).then(JSON.parse);
 }
 
+export async function clearDailyNotification(){
+	var tomorrow = new Date( await AsyncStorage.getItem(QUIZZ_KEY).then(JSON.parse))
+	var today = new Date()
+	tomorrow.setDate(today.getDate() + 1)
+
+	await Notifications.cancelAllScheduledNotificationsAsync()
+	Notifications.scheduleLocalNotificationAsync(
+		{
+			// First Parameter
+			title: 'Study Some Quizzes',
+			body: 'Don`t forget your daily studies',
+			ios: {
+				sound: true
+			},
+				android: {
+				priority: 'low',
+				vibrate: true
+			}
+		},
+		{
+			// Second Parameter
+			time: tomorrow,
+			repeat: 'day'
+		}
+	)
+	AsyncStorage.removeItem(QUIZZ_KEY)
+	AsyncStorage.setItem(QUIZZ_KEY, JSON.stringify(tomorrow));
+}
+
 export function addNotification(hour, minute){
 	Permissions.askAsync(Permissions.NOTIFICATIONS)
 		.then((data) => {
@@ -50,7 +79,6 @@ export function addNotification(hour, minute){
 					tomorrow.setHours(hour);
 					tomorrow.setMinutes(minute);
 				}
-				console.warn(tomorrow)
 				Notifications.scheduleLocalNotificationAsync(
 					{
 						// First Parameter
@@ -69,8 +97,8 @@ export function addNotification(hour, minute){
 						time: tomorrow,
 						repeat: 'day'
 					}
-				);						
-				AsyncStorage.setItem(QUIZZ_KEY, JSON.stringify(true));
+				);
+				AsyncStorage.setItem(QUIZZ_KEY, JSON.stringify(tomorrow));
 			}
 		})
 }

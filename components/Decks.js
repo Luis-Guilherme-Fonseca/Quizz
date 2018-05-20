@@ -17,7 +17,6 @@ class Decks extends Component{
 	
 	componentDidMount(){
 		getDecks().then((decks) => {
-			console.warn(decks)
 			this.props.returnDecks(decks)
 		})
 		

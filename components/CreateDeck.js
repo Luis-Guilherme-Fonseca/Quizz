@@ -19,6 +19,7 @@ class CreateDeck extends Component{
 			const deck = createDeck(title)
 			saveDeck(deck)
 			this.props.dispatch(addDeck(deck, decks))
+			this.props.navigation.navigate('Deck', {item: deck, index: decks.length - 1})
 		}
 	}
 
